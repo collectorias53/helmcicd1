@@ -1,0 +1,45 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Build
+  jobs:
+  - job: PackageHelmChart
+    steps:
+    - task: HelmInstaller@1
+      inputs:
+        helmVersionToInstall: 'latest'
+    - task: HelmDeploy@1
+      inputs:
+        azureSubscriptionForACR: 'spconnection'
+        azureResourceGroupForACR: 'rgterra'
+        azureContainerRegistry: 'kubeacr1.azurecr.io'
+        command: 'package'
+        chartPath: '/home/vsts/work/1/s/az-chat'
+        chartNameForACR: 'az-chat-helm'
+        chartPathForACR: '/path/to/helm-charts/my-chart'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)'
+        artifact: 'drophelm'
+        publishLocation: 'pipeline'
+
+- stage: Deploy
+  jobs:
+  - job: DeployToAKS
+    steps:
+    - task: HelmDeploy@1
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        azureSubscription: 'spconnection'
+        azureResourceGroup: 'rgterra'
+        kubernetesCluster: 'akstf'
+        command: 'upgrade'
+        chartType: 'FilePath'
+        chartPath: '/home/vsts/work/1/s/az-chat'
+        releaseName: 'az-chat'
+    
+
