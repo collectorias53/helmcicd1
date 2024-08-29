@@ -1,0 +1,45 @@
+replicaCount: 1
+
+image:
+  repository: kubenet.azurecr.io/testchatimage
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8002
+
+env:
+  ENVIRONMENT: ""
+  PROFILING: ""
+  ENTITY: ""
+  AZURE_KEY_VAULT_URL: "https://testpasswordstore.vault.azure.net/"
+  CAS_IP: ""
+  CAS_PORT: ""
+  CAS_URL: ""
+  CAS_USER: "alikhar@officertrak.com"
+  CAS_PASSWORD: "Z^$*rTW6"
+  DJANGO_SECRET_KEY: "abc"
+  ENTITY_DISPLAY_NAME: ""
+  FCM_API_KEY: ""
+  FCM_POST_URL: "https://fcm.googleapis.com/fcm/send"
+  GOOGLE_API_KEY: ""
+  OTP_SECRET: ""
+  PLIVO_AUTH_ID: ""
+  PLIVO_TOKEN: ""
+  PLIVO_PHONE_NUMBER: ""
+  TANENT_CLIENT_ID: ""
+  STRIPE_API_KEY: ""
+  FIELD_ENCRYPTION_KEYS: ""
+  TELESTAFF_URL: ""
+  TELESTAFF_USERNAME: ""
+  TELESTAFF_PASSWORD: ""
+  DB_NAME: "postgres"
+  DB_USER: "aksadmin"
+  DB_PASSWORD: "s&FLpt9%iWLf"
+  DB_HOST: "akspg.postgres.database.azure.com"
+  DB_CAS_USER: "akscasadmin"
+  DB_CAS_PASSWORD: "Tyc8Y#3!h392"
+  DB_CAS_HOST: "akscaspg.postgres.database.azure.com"
+  REDIS_HOST: "10.0.60.21"

@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ENVIRONMENT
+              value: "{{ .Values.env.ENVIRONMENT }}"
+            - name: PROFILING
+              value: "{{ .Values.env.PROFILING }}"
+            - name: ENTITY
+              value: "{{ .Values.env.ENTITY }}"
+            - name: AZURE_KEY_VAULT_URL
+              value: "{{ .Values.env.AZURE_KEY_VAULT_URL }}"
+            - name: CAS_IP
+              value: "{{ .Values.env.CAS_IP }}"
+            - name: CAS_PORT
+              value: "{{ .Values.env.CAS_PORT }}"
+            - name: CAS_URL
+              value: "{{ .Values.env.CAS_URL }}"
+            - name: CAS_USER
+              value: "{{ .Values.env.CAS_USER }}"
+            - name: CAS_PASSWORD
+              value: "{{ .Values.env.CAS_PASSWORD }}"
+            - name: DJANGO_SECRET_KEY
+              value: "{{ .Values.env.DJANGO_SECRET_KEY }}"
+            - name: ENTITY_DISPLAY_NAME
+              value: "{{ .Values.env.ENTITY_DISPLAY_NAME }}"
+            - name: FCM_API_KEY
+              value: "{{ .Values.env.FCM_API_KEY }}"
+            - name: FCM_POST_URL
+              value: "{{ .Values.env.FCM_POST_URL }}"
+            - name: GOOGLE_API_KEY
+              value: "{{ .Values.env.GOOGLE_API_KEY }}"
+            - name: OTP_SECRET
+              value: "{{ .Values.env.OTP_SECRET }}"
+            - name: PLIVO_AUTH_ID
+              value: "{{ .Values.env.PLIVO_AUTH_ID }}"
+            - name: PLIVO_TOKEN
+              value: "{{ .Values.env.PLIVO_TOKEN }}"
+            - name: PLIVO_PHONE_NUMBER
+              value: "{{ .Values.env.PLIVO_PHONE_NUMBER }}"
+            - name: TANENT_CLIENT_ID
+              value: "{{ .Values.env.TANENT_CLIENT_ID }}"
+            - name: STRIPE_API_KEY
+              value: "{{ .Values.env.STRIPE_API_KEY }}"
+            - name: FIELD_ENCRYPTION_KEYS
+              value: "{{ .Values.env.FIELD_ENCRYPTION_KEYS }}"
+            - name: TELESTAFF_URL
+              value: "{{ .Values.env.TELESTAFF_URL }}"
+            - name: TELESTAFF_USERNAME
+              value: "{{ .Values.env.TELESTAFF_USERNAME }}"
+            - name: TELESTAFF_PASSWORD
+              value: "{{ .Values.env.TELESTAFF_PASSWORD }}"
+            - name: DB_NAME
+              value: "{{ .Values.env.DB_NAME }}"
+            - name: DB_USER
+              value: "{{ .Values.env.DB_USER }}"
+            - name: DB_PASSWORD
+              value: "{{ .Values.env.DB_PASSWORD }}"
+            - name: DB_HOST
+              value: "{{ .Values.env.DB_HOST }}"
+            - name: DB_CAS_USER
+              value: "{{ .Values.env.DB_CAS_USER }}"
+            - name: DB_CAS_PASSWORD
+              value: "{{ .Values.env.DB_CAS_PASSWORD }}"
+            - name: DB_CAS_HOST
+              value: "{{ .Values.env.DB_CAS_HOST }}"
+            - name: REDIS_HOST
+              value: "{{ .Values.env.REDIS_HOST }}"
